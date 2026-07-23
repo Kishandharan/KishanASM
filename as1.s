@@ -1,0 +1,18 @@
+.global _start
+.intel_syntax noprefix
+
+_start:
+  // syswrite
+  mov rax, 1
+  mov rdi, 1
+  lea rsi, [hello_world]
+  mov rdx, 12
+  syscall
+
+  // sysexit call
+  mov rax, 60 
+  mov rdi, 69 
+  syscall
+
+hello_world:
+  .asciz "hello_world\n"
