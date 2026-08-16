@@ -48,5 +48,3 @@ exit:
 .section .data 
   dst: .skip 100
   src: .string "Hello, % and %"
-
-    
