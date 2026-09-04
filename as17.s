@@ -15,30 +15,42 @@
     syscall
     # -----
 
-    mov rdi, 5
-    call malloc
-    
+    mov rdi, 6 
+    call malloc 
     mov byte ptr [rax+0], 'H'
     mov byte ptr [rax+1], 'e'
     mov byte ptr [rax+2], 'l'
     mov byte ptr [rax+3], 'l'
     mov byte ptr [rax+4], 'o'
-
-    mov rbx, rax # Preserving rax for passing to free
-
-    lea rsi, [rax]
+    mov byte ptr [rax+5], '\n'
+    mov [heap_start], rax
+    mov rsi, rax
     mov rax, 1 
     mov rdi, 1 
-    mov rdx, 5
+    mov rdx, 6
     syscall
 
-    mov rdi, rbx
+    mov rdi, 6 
+    call malloc 
+    mov byte ptr [rax+0], 'B'
+    mov byte ptr [rax+1], 'e'
+    mov byte ptr [rax+2], 'l'
+    mov byte ptr [rax+3], 'l'
+    mov byte ptr [rax+4], 'o'
+    mov byte ptr [rax+5], '\n'
+    mov rsi, rax
+    mov rax, 1
+    mov rdi, 1
+    mov rdx, 6
+    syscall
+
+    mov rdi, [heap_start]
     call free
-    
+
     mov rax, 60 
     mov rdi, 0 
     syscall
-    
+
   malloc:
     mov rax, [heap_ptr]
     add qword ptr [heap_ptr], rdi
@@ -50,3 +62,4 @@
 
 .section .data
   heap_ptr: .quad 0x0
+  heap_start: .quad 0x0
