@@ -45,7 +45,6 @@
       mov bl, [rdi]
       cmp bl, 0
       je exit
-
       cmp byte ptr [buf], bl
       je handle_char
       add rdi, 9
